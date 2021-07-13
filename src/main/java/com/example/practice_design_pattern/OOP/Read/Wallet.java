@@ -12,7 +12,7 @@ import java.rmi.AccessException;
  * @description:
  * @date 2021/7/13 15:20
  */
-
+// 封装
 public class Wallet {
     // 钱包的唯一编号
     private String id;

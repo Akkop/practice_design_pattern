@@ -1,8 +1,10 @@
 package com.example.practice_design_pattern.OOP.Read;
 
+
 import org.springframework.util.SimpleIdGenerator;
 
 import java.math.BigDecimal;
+import java.rmi.AccessException;
 
 /**
  * @author akk
@@ -38,20 +40,20 @@ public class Wallet {
 
     // 对于钱包的特性值增加金额或者减少金额，不存在设置金额所以 balance 也不暴露出来，而是暴露出 increaseBalance 和 decreaseBalance 来进行修改
     // balanceLastModifiedTime 属性是和 balance 的修改绑定在一起的，以保证数据一致性
-    public void increaseBalance(BigDecimal increasedAmount) {
+    public void increaseBalance(BigDecimal increasedAmount) throws AccessException {
         if (increasedAmount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidAmountException("...");
+            throw new AccessException("...");
         }
         this.balance.add(increasedAmount);
         this.balanceLastModifiedTime = System.currentTimeMillis();
     }
 
-    public void decreaseBalance(BigDecimal decreasedAmount) {
+    public void decreaseBalance(BigDecimal decreasedAmount) throws AccessException {
         if (decreasedAmount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidAmountException("...");
+            throw new AccessException("...");
         }
         if (decreasedAmount.compareTo(this.balance) > 0) {
-            throw new InsufficientAmountException("...");
+            throw new AccessException("...");
         }
         this.balance.subtract(decreasedAmount);
         this.balanceLastModifiedTime = System.currentTimeMillis();
